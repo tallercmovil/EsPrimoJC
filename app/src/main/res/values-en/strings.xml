@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backg_description">Background image</string>
+    <string name="hint">Number</string>
+    <string name="check">Check</string>
+    <string name="isPrime">Is it prime?</string>
+    <string name="si_primo">Number %1$s is prime!</string>
+    <string name="no_primo">Number %1$s is not prime!</string>
+</resources>

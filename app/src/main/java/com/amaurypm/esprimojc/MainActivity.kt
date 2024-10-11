@@ -19,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,6 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.amaurypm.esprimojc.ui.theme.EsPrimoJCTheme
+import com.amaurypm.esprimojc.ui.theme.MyGreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,28 +58,44 @@ class MainActivity : ComponentActivity() {
                     mutableStateOf("")
                 }
 
-                MainScreen(number) { value ->
-                    number = value
+                var enableButton by rememberSaveable {
+                    mutableStateOf(false)
                 }
 
+                var result by rememberSaveable {
+                    mutableStateOf("")
+                }
+
+                MainScreen(number, enableButton, result, { value ->
+                    number = value
+                    enableButton = value.isNotEmpty()
+                },{ textResult ->
+                    result = textResult
+                })
 
             }
         }
     }
 }
 
-
 @Composable
 fun MainScreen(
     number: String,
-    onValueChanged: (String) -> Unit
-){
+    enableButton: Boolean,
+    result: String,
+    onValueChanged: (String) -> Unit,
+    onResultChange: (String) -> Unit
+) {
 
+    var si_primo = ""
+    var no_primo = ""
 
+    si_primo = stringResource(R.string.si_primo, number)
+    no_primo = stringResource(R.string.no_primo, number)
 
     Box(
         modifier = Modifier.fillMaxSize()
-    ){
+    ) {
         Image(
             painter = painterResource(R.drawable.backg),
             contentDescription = stringResource(R.string.backg_description),
@@ -93,15 +111,13 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-
             Text(
-                text = "¿Es primo?",
+                stringResource(R.string.isPrime),
                 fontFamily = FontFamily(Font(R.font.bryndanwrite)),
                 fontSize = 50.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
-
 
             PrimeNumberTextField(
                 number
@@ -109,19 +125,31 @@ fun MainScreen(
                 onValueChanged(it)
             }
 
-            Button(
+            /*Button(
                 onClick = {
-                    if(esPrimo(number.toInt())) Log.d("APPLOGS", "El número $number sí es primo")
-                        else Log.d("APPLOGS", "El número $number no es primo")
+                    if (esPrimo(number.toInt())) Log.d("APPLOGS", "El número $number sí es primo")
+                    else Log.d("APPLOGS", "El número $number no es primo")
                 }
-            ){
+            ) {
                 Text(text = "Verificar")
+            }*/
+
+            Text(
+                text = result,
+                fontFamily = FontFamily(Font(R.font.bryndanwrite)),
+                fontSize = 25.sp
+            )
+
+            VerifyButton(enableButton) {
+                val value = number.toInt()
+                if (esPrimo(value)) {
+                    onResultChange(si_primo)
+                } else {
+                    onResultChange(no_primo)
+                }
             }
 
-
-
         }
-
 
     }
 }
@@ -134,7 +162,7 @@ fun PrimeNumberTextField(value: String, onValueChange: (String) -> Unit) {
         modifier = Modifier.fillMaxWidth(0.8f),
         placeholder = {
             Text(
-                text = "Número",
+                text = stringResource(R.string.hint),
                 modifier = Modifier
                     .width(280.dp)
                     .padding(start = 0.dp),
@@ -153,7 +181,7 @@ fun PrimeNumberTextField(value: String, onValueChange: (String) -> Unit) {
             keyboardType = KeyboardType.Number // Define el teclado numérico
         ),
         onValueChange = { newValue ->
-            if(newValue.all { it.isDigit() } && newValue.length<=5)
+            if (newValue.all { it.isDigit() } && newValue.length <= 5)
                 onValueChange(newValue)
         }
     )
@@ -167,5 +195,21 @@ private fun esPrimo(numero: Int): Boolean {
     }
 
     return true
+}
+
+@Composable
+fun VerifyButton(isEnabled: Boolean, onClick: () -> Unit) {
+    Button(
+        colors = ButtonDefaults.buttonColors(containerColor = MyGreen),
+        enabled = isEnabled,
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(0.7f)
+    ) {
+        Text(
+            stringResource(R.string.check),
+            fontFamily = FontFamily(Font(R.font.bryndanwrite)),
+            fontSize = 35.sp
+        )
+    }
 }
 

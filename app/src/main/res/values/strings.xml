@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">Es primo JC</string>
+    <string name="app_name" translatable="false">Es primo JC</string>
     <string name="backg_description">Imagen de fondo</string>
+    <string name="hint">Número</string>
+    <string name="check">Verificar</string>
+    <string name="isPrime">¿Es primo?</string>
+    <string name="si_primo">El número %1$s sí es primo</string>
+    <string name="no_primo">El número %1$s no es primo</string>
 </resources>
