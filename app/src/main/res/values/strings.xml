@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Es Primo JC</string>
+    <string name="verificar">Verificar</string>
+    <string name="si_primo">El número %1$s sí es primo</string>
+    <string name="no_primo">El número %1$s no es primo</string>
 </resources>
