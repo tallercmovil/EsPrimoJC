@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Es primo JC</string>
+    <string name="es_primo">Is it prime?</string>
+    <string name="verificar">Check</string>
+    <string name="si_primo">The number %s is prime!</string>
+    <string name="no_primo">The number %s is not prime!</string>
+    <string name="hint">Number</string>
+    <string name="backg">Background image</string>
+</resources>

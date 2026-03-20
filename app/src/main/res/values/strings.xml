@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Es primo JC</string>
+    <string name="es_primo">¿Es primo?</string>
+    <string name="verificar">Verificar</string>
+    <string name="si_primo">¡El número %s sí es primo!</string>
+    <string name="no_primo">¡El número %s no es primo!</string>
+    <string name="hint">Número</string>
+    <string name="backg">Imagen de fondo</string>
+</resources>
