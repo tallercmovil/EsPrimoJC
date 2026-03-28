@@ -86,6 +86,10 @@ fun MainScreen(
     onNumberChange: (String) -> Unit,
     onResultTextChange: (String) -> Unit
 ) {
+
+    val siPrimo = stringResource(R.string.si_primo, number)
+    val noPrimo = stringResource(R.string.no_primo, number)
+
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -125,10 +129,10 @@ fun MainScreen(
                 onClick = {
                     if (esPrimo(number.toInt())) {
                         Log.d("APPLOGS", "El número $number sí es primo")
-                        onResultTextChange("El número $number sí es primo")
+                        onResultTextChange(siPrimo)
                     } else {
-                        Log.d("APPLOGS", "El número $number sí es primo")
-                        onResultTextChange("El número $number no es primo")
+                        Log.d("APPLOGS", "El número $number no es primo")
+                        onResultTextChange(noPrimo)
                     }
                 }
             )
